@@ -1,3 +1,5 @@
+# A bot ensures that these actions get synchronized - do not edit in this repository.
+
 name: PR
 
 on:
@@ -12,10 +14,11 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
+
     steps:
-      - name: "Auto-assign issue"
-        uses: pozil/auto-assign-issue@v1
-        with:
+    - name: 'Auto-assign issue'
+      uses: pozil/auto-assign-issue@v2
+      with:
           repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           assignees: thulasirajkomminar
           numOfAssignee: 1
