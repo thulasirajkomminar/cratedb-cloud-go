@@ -3,7 +3,7 @@ module github.com/komminarlabs/cratedb
 go 1.22.2
 
 require (
-	github.com/oapi-codegen/oapi-codegen/v2 v2.4.0
+	github.com/oapi-codegen/oapi-codegen/v2 v2.4.1
 	github.com/oapi-codegen/runtime v1.1.1
 )
 
