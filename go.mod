@@ -1,4 +1,4 @@
-module github.com/komminarlabs/cratedb
+module github.com/thulasirajkomminar/cratedb
 
 go 1.22.5
 
