@@ -33,7 +33,7 @@ import (
 	"net/http"
 
 	"github.com/caarlos0/env/v11"
-	"github.com/komminarlabs/cratedb"
+	"github.com/thulasirajkomminar/cratedb"
 )
 
 type CratedbConfig struct {
