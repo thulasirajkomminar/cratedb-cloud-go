@@ -1,4 +1,4 @@
-module github.com/thulasirajkomminar/cratedb
+module github.com/thulasirajkomminar/cratedb-cloud-go
 
 go 1.22.5
 
