@@ -33,7 +33,7 @@ import (
 	"net/http"
 
 	"github.com/caarlos0/env/v11"
-	"github.com/thulasirajkomminar/cratedb"
+	"github.com/thulasirajkomminar/cratedb-cloud-go"
 )
 
 type CratedbConfig struct {
