@@ -1,0 +1,143 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":rebaseStalePrs",
+    ":separatePatchReleases"
+  ],
+  "schedule": [
+    "before 9am on Monday"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "prConcurrentLimit": 6,
+  "prHourlyLimit": 2,
+  "rebaseWhen": "conflicted",
+  "automerge": false,
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodUpdateImportPaths"
+  ],
+  "packageRules": [
+    {
+      "description": "Direct runtime deps — patch",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "require"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "Direct deps (patch)"
+    },
+    {
+      "description": "Direct runtime deps — minor",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "require"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "Direct deps (minor)"
+    },
+    {
+      "description": "Major bumps always get standalone PR",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": null,
+      "labels": [
+        "breaking-change",
+        "dependencies"
+      ]
+    },
+    {
+      "description": "Indirect/transitive deps — group patch and minor",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "groupName": "Indirect deps"
+    },
+    {
+      "description": "Linting / dev tooling (golangci-lint etc)",
+      "matchManagers": [
+        "gomod",
+        "github-actions"
+      ],
+      "matchPackagePatterns": [
+        "golangci/golangci-lint",
+        "github.com/golangci/golangci-lint"
+      ],
+      "groupName": "Linting toolchain"
+    },
+    {
+      "description": "GitHub Actions — group",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Go toolchain version pin",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "golang"
+      ],
+      "groupName": "Go toolchain",
+      "labels": [
+        "go-version"
+      ]
+    }
+  ],
+  "customManagers": [
+    {
+      "description": "golangci-lint version in CI",
+      "customType": "regex",
+      "fileMatch": [
+        "^\\.github/workflows/.*\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "golangci/golangci-lint-action.*\\n.*version:\\s*v?(?<currentValue>[\\d\\.]+)"
+      ],
+      "depNameTemplate": "golangci/golangci-lint",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "Go version in .go-version or CI",
+      "customType": "regex",
+      "fileMatch": [
+        "^\\.go-version$",
+        "^\\.github/workflows/.*\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "go-version[:\\s]+['\"]?(?<currentValue>[\\d\\.]+)['\"]?"
+      ],
+      "depNameTemplate": "golang",
+      "datasourceTemplate": "golang-version"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "security"
+    ]
+  }
+}
