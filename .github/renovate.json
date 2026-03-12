@@ -80,11 +80,11 @@
         "gomod",
         "github-actions"
       ],
-      "matchPackagePatterns": [
-        "golangci/golangci-lint",
-        "github.com/golangci/golangci-lint"
-      ],
-      "groupName": "Linting toolchain"
+      "groupName": "Linting toolchain",
+      "matchPackageNames": [
+        "/golangci/golangci-lint/",
+        "/github.com/golangci/golangci-lint/"
+      ]
     },
     {
       "description": "GitHub Actions — group",
@@ -111,8 +111,8 @@
     {
       "description": "golangci-lint version in CI",
       "customType": "regex",
-      "fileMatch": [
-        "^\\.github/workflows/.*\\.ya?ml$"
+      "managerFilePatterns": [
+        "/^\\.github/workflows/.*\\.ya?ml$/"
       ],
       "matchStrings": [
         "golangci/golangci-lint-action.*\\n.*version:\\s*v?(?<currentValue>[\\d\\.]+)"
@@ -123,9 +123,9 @@
     {
       "description": "Go version in .go-version or CI",
       "customType": "regex",
-      "fileMatch": [
-        "^\\.go-version$",
-        "^\\.github/workflows/.*\\.ya?ml$"
+      "managerFilePatterns": [
+        "/^\\.go-version$/",
+        "/^\\.github/workflows/.*\\.ya?ml$/"
       ],
       "matchStrings": [
         "go-version[:\\s]+['\"]?(?<currentValue>[\\d\\.]+)['\"]?"
